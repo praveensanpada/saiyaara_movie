@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saiyaara – Movie in 4 Parts</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0e0e0e;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(120deg, #202020, #0f0f0f);
+            box-shadow: 0 4px 10px #000;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background: #1b1b1b;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: scale(1.02);
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 200px;
+            background: #333 url('https://via.placeholder.com/640x360?text=Play+Part') center/cover no-repeat;
+            border-radius: 8px;
+        }
+
+        @media(min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal video {
+            width: 90%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 20px #000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🎬 Saiyaara</h1>
+        <p>Watch the full movie in 4 high-quality parts</p>
+    </header>
+
+    <main class="container">
+        <div class="video-card" onclick="openModal('part1.mp4')">
+            <div class="video-thumb"></div>
+            <div class="video-title">Part 1 (00:00 – 35:58)</div>
+        </div>
+        <div class="video-card" onclick="openModal('part2.mp4')">
+            <div class="video-thumb"></div>
+            <div class="video-title">Part 2 (35:58 – 1:11:56)</div>
+        </div>
+        <div class="video-card" onclick="openModal('part3.mp4')">
+            <div class="video-thumb"></div>
+            <div class="video-title">Part 3 (1:11:56 – 1:47:54)</div>
+        </div>
+        <div class="video-card" onclick="openModal('part4.mp4')">
+            <div class="video-thumb"></div>
+            <div class="video-title">Part 4 (1:47:54 – End)</div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="videoModal" class="modal" onclick="closeModal(event)">
+        <span class="close-btn" onclick="closeModal(event)">&times;</span>
+        <video id="modalVideo" controls autoplay></video>
+    </div>
+
+    <script>
+        function openModal(videoSrc) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            video.src = videoSrc;
+            modal.classList.add('active');
+            video.play();
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'videoModal' || e.target.className === 'close-btn') {
+                const modal = document.getElementById('videoModal');
+                const video = document.getElementById('modalVideo');
+                video.pause();
+                video.currentTime = 0;
+                video.src = '';
+                modal.classList.remove('active');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
